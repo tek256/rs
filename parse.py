@@ -1,7 +1,6 @@
 import json
 import sys
 
-
 def dict_contains(test_dict, test_value):
     for key in test_dict:
         if key == test_value:
@@ -35,6 +34,8 @@ def parse_file(file_location, dictionary):
                     item_dict[d_id] = d_qty
             dictionary[data_type] = item_dict
 
+    return data
+
 
 def pretty_print(dictionary):
     with open('rsitems.json') as f:
@@ -50,12 +51,25 @@ def pretty_print(dictionary):
                         break
                 print(item_name, ":", qty)   
 
+def merge_files(dst, filepath):
+    result = list()
+    with open(filepath, 'r') as infile:
+        result.extend(json.load(infile))
+
+    with open(dst, 'w') as output:
+        json.dump(result, output);
+
 
 
 file_count = len(sys.argv) - 1
 drop_dict = {}
+result = list()
 
 for f in range(1, len(sys.argv)):
-    parse_file(sys.argv[f], drop_dict)
+    result.extend(parse_file(sys.argv[f], drop_dict))
+    print(sys.argv[f])
+    if(file_count > 1):
+        with open("combined.json", 'w') as output:
+            json.dump(result, output)
 
 pretty_print(drop_dict)
