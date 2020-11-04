@@ -12,3 +12,5 @@ You can configure the script to combine data or not (not will be faster) as well
 If powershell gives you an error saying `cmdlet` not found, then run the following command: `$env:PATHEXT += ";.py"`. This will allow powershell to run python scripts as executables.
 
 The script will combine all data passed as arguments into combined.json
+
+If you want to configure the script manually, look for `CONFIGURATION` in the source code (parse.py)!
